@@ -17,13 +17,6 @@ metadata:
     backstage.io/techdocs-ref: dir:..
     github.com/workflows: terraform-deploy.yml,start-instance.yml,stop-instance.yml,kubeconfig.yml,terraform-destroy.yml
     cluster/instructions: "# Run the following commands to import the kubeconfig:\n  ssh -i ./cert.pem -o StrictHostKeyChecking=no $USERNAME@$3.221.147.212 \"mkdir -p .kube && k3d kubeconfig get k3s > ~/.kube/config\"\n  scp -i ./cert.pem $USERNAME@$3.221.147.212:~/.kube/config ~/.kube/config-end-to-end-cluster\n  yq -e 'del(.clusters[0].cluster.certificate-authority-data) | .clusters[0].cluster.insecure-skip-tls-verify=true | .clusters[].cluster.server |= sub(\"0.0.0.0\", \"3.221.147.212\")' -i ~/.kube/config-end-to-end-cluster\n  export KUBECONFIG=~/.kube/config-end-to-end-cluster\n  kubectl get pods -A\n"
-    veecode/cluster-name: end-to-end-cluster
-    kubernetes.io/secret-name: end-to-end-cluster-secret
-    kubernetes.io/secret-namespace: veecode-homolog
-    kubernetes.io/auth-provider: custom
-    kubernetes.io/api-server: https://3.221.147.212:6550
-    kubernetes.io/skip-tls-verify: "true"
-    kubernetes.io/skip-metrics-lookup: "false"
 spec:
   type: ec2
   lifecycle: experimental
